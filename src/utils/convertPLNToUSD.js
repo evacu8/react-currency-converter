@@ -7,5 +7,13 @@ export const convertPLNToUSD = (PLN) => {
     currency: 'USD'
   });
 
-  return formatter.format(PLNtoUSD).replace(/\u00a0/g, ' ');
+  if(typeof PLN === 'string'){
+    return NaN;
+  } else if(typeof PLN !== 'string' && typeof PLN !== 'number') {
+    return 'Error';
+  } else if(PLN < 0) {
+    return formatter.format(0).replace(/\u00a0/g, ' ');
+  } else {
+    return formatter.format(PLNtoUSD).replace(/\u00a0/g, ' ');
+  }
 }
