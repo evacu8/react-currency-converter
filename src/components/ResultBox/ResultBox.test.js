@@ -49,4 +49,34 @@ import '@testing-library/jest-dom/extend-expect';
           expect(resultBoxElement).toHaveTextContent(`$${amountWithCommas} = PLN ${result}`);
       });
     }
+
+    for(const testAmount of testCases) {
+      it('should render proper info about conversion when PLN -> PLN', () => {
+        const amount = parseInt(testAmount.amount);
+        // render component
+        render(<ResultBox from="PLN" to="PLN" amount={amount} />)
+  
+          // find “resultBox”
+          const resultBoxElement = screen.getByTestId('result-box');
+  
+          // check if element presents correct value
+          const amountWithCommas = amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+          expect(resultBoxElement).toHaveTextContent(`PLN ${amountWithCommas} = PLN ${amountWithCommas}`);
+      });
+    }
+
+    for(const testAmount of testCases) {
+      it('should render proper info about conversion when USD -> USD', () => {
+        const amount = parseInt(testAmount.amount);
+        // render component
+        render(<ResultBox from="USD" to="USD" amount={amount} />)
+  
+          // find “resultBox”
+          const resultBoxElement = screen.getByTestId('result-box');
+  
+          // check if element presents correct value
+          const amountWithCommas = amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+          expect(resultBoxElement).toHaveTextContent(`$${amountWithCommas} = $${amountWithCommas}`);
+      });
+    }
 });
